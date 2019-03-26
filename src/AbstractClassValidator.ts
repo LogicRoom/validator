@@ -54,7 +54,7 @@ export abstract class AbstractClassValidator {
 
   @computed
   public get formIsValid(): boolean {
-    if (this.serverErrors.length > 0) return false
+    if ((this.serverErrors || []).length > 0) return false
     return this.observableInputs
       .map(input => input.isValid)
       .reduce((accumulator, currentValue) => {
@@ -65,7 +65,7 @@ export abstract class AbstractClassValidator {
 
   @computed
   public get errors(): string[] {
-    return this.serverErrors.concat(
+    return (this.serverErrors || []).concat(
       this.observableInputs.reduce((accumulator, input) => {
         return accumulator.concat(input.errorMessages)
       }, [])
