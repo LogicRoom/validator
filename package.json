@@ -1,0 +1,34 @@
+{
+  "name": "@logicroom/validator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "files": ["dist"],
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "jest",
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LogicRoom/validator.git"
+  },
+  "author": "Tom Riglar <tomr@logicroom.co>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LogicRoom/validator/issues"
+  },
+  "homepage": "https://github.com/LogicRoom/validator#readme",
+  "dependencies": {
+    "mobx": "^5.9.0",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "jest": "^24.5.0",
+    "rollup": "^1.7.3",
+    "rollup-plugin-typescript2": "^0.20.1",
+    "tslib": "^1.9.3",
+    "typescript": "^3.3.4000"
+  }
+}
