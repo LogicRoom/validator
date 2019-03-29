@@ -10,8 +10,12 @@ export const MUST_BE_STRING = (value: any) => {
   return typeof value === 'string'
 }
 
-export const MUST_BE_NUMBER = (value: any) => {
+export const MUST_BE_NUMBER_PRIMITIVE = (value: any) => {
   return typeof value === 'number'
+}
+
+export const MUST_BE_NUMBER = (value: any) => {
+  return !isNaN(value)
 }
 
 export const MUST_BE_EMAIL = (value: any) => {
