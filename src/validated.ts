@@ -71,7 +71,7 @@ export function validated(options: IValidatedOptions): any {
       {
         ...initialObject,
         value,
-        isValid: false,
+        isValid: getValidity(value).valid,
         isDirty: false,
         errorMessages: [],
         onChange: (newValue: string | boolean | number) => {

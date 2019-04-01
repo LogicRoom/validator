@@ -1,6 +1,6 @@
 import { computed, observable, action, reaction } from 'mobx'
 import 'reflect-metadata'
-import { IValidatedInput } from './IValidatedInput';
+import { IValidatedInput } from './IValidatedInput'
 
 export abstract class AbstractClassValidator {
   @observable
