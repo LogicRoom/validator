@@ -117,17 +117,6 @@ A hypothetical example of a registration form may look like:
     manadatory: true,
     rules: [
       {
-        rule: MUST_BE_EMAIL,
-        errorMessage: 'Your entry does not look like an email.'
-      }
-    ]
-  })
-  public username: IValidatedInput<string>  = ''
-
-  @validated({
-    manadatory: true,
-    rules: [
-      {
         rule: MAX_LENGTH(25),
         errorMessage: 'Password must be less than 25 characters.'
       },
