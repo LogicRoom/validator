@@ -1,6 +1,6 @@
 {
   "name": "@logicroom/validator",
-  "version": "1.0.4",
+  "version": "1.0.5-alpha1",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/LogicRoom/validator#readme",
   "dependencies": {
+    "inversify": "^5.0.1",
     "mobx": "^5.9.0",
     "reflect-metadata": "^0.1.13"
   },
