@@ -1,7 +1,9 @@
 import { computed, observable, action, reaction } from 'mobx'
 import 'reflect-metadata'
 import { IValidatedInput } from './IValidatedInput'
+import { injectable } from 'inversify'
 
+@injectable()
 export abstract class AbstractClassValidator {
   @observable
   public abstract serverErrors?: string[] = []
