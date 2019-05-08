@@ -1,6 +1,2 @@
-export * from './validated'
-export * from './AbstractClassValidator'
-export * from './presets'
-export * from './IValidatedInput'
-
-
+export * from './GenericFormInputPresenter'
+export * from './GenericFormPresenter'

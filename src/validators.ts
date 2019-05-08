@@ -1,3 +1,8 @@
+export const MUST_BE_POPULATED = (value: any) => {
+  const isString = typeof value === 'string'
+  return isString ? (value as any).length > 0 : value !== undefined
+}
+
 export const MUST_BE_TRUE = (value: any) => {
   return value === true
 }
@@ -24,9 +29,9 @@ export const MUST_BE_EMAIL = (value: any) => {
 }
 
 export const MIN_LENGTH = (length: number) => (value: any) => {
-  return value.length > length
+  return value.length >= length
 }
 
 export const MAX_LENGTH = (length: number) => (value: any) => {
-  return value.length < length
+  return value.length <= length
 }
