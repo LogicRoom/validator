@@ -60,7 +60,7 @@ export class GenericFormInputPresenter<T> {
 
   @action
   public addCustomRule = (
-    condition: (value: any) => boolean,
+    condition: (value: T) => boolean,
     errorMessage?: string
   ) => {
     this.rules.push({ condition, errorMessage })

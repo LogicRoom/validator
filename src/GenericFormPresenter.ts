@@ -36,7 +36,7 @@ export class GenericFormPresenter {
   }
 
   @computed
-  public get errors(): string[] {
+  public get errorMessages(): string[] {
     return (this.serverErrors || []).concat(
       this.formInputs
         .reduce((accumulator, input) => {
@@ -47,7 +47,7 @@ export class GenericFormPresenter {
   }
 
   @action
-  public resetForm() {
+  public reset() {
     this.formInputs.forEach(input => {
       input.reset()
     })

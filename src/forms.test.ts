@@ -22,7 +22,7 @@ test('login scenario', () => {
 
   expect(form.isValid).toBe(false)
   expect(form.isDirty).toBe(false)
-  expect(form.errors).toEqual([
+  expect(form.errorMessages).toEqual([
     'You must provide a valid email address',
     'You must populate the password field'
   ])
@@ -37,7 +37,7 @@ test('login scenario', () => {
 
   expect(form.isValid).toBe(false)
   expect(form.isDirty).toBe(true)
-  expect(form.errors).toEqual(['You must populate the password field'])
+  expect(form.errorMessages).toEqual(['You must populate the password field'])
 })
 
 test('can update and reset form', () => {
@@ -60,7 +60,7 @@ test('can update and reset form', () => {
   expect(email.value).toBe('test@test.com')
   expect(password.value).toBe('some string')
 
-  form.resetForm()
+  form.reset()
 
   expect(email.value).toBe('')
   expect(password.value).toBe('')
