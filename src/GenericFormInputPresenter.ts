@@ -92,11 +92,11 @@ export class GenericFormInputPresenter<T> {
     return this.addCustomRule(MUST_BE_NUMBER, errorMessage)
   }
 
-  public minLength = (length: number, errorMessage?: string) => {
+  public mustHaveMinLength = (length: number, errorMessage?: string) => {
     return this.addCustomRule(MIN_LENGTH(length), errorMessage)
   }
 
-  public maxLength = (length: number, errorMessage?: string) => {
+  public mustHaveMaxLength = (length: number, errorMessage?: string) => {
     return this.addCustomRule(MAX_LENGTH(length), errorMessage)
   }
 
