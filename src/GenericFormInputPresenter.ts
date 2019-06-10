@@ -40,6 +40,8 @@ export class GenericFormInputPresenter<T> {
 
   private initialValue?: T
 
+  private middleware: Array<(newValue: T) => T> = []
+
   constructor(initialValue: T) {
     this.initialValue = initialValue
     this.value = initialValue
@@ -48,9 +50,17 @@ export class GenericFormInputPresenter<T> {
 
   public onChange = (newValue: T) => {
     if (!this.disabled) {
-      this.value = newValue
+      this.value = this.middleware.reduce(
+        (accumulator, middleware) => middleware(accumulator),
+        newValue
+      )
       this.isDirty = true
     }
+  }
+
+  public withMiddleware? = (middleware: (newValue: T) => T) => {
+    this.middleware.push(middleware)
+    return this
   }
 
   public reset = () => {

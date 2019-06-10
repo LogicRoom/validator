@@ -65,3 +65,16 @@ test('can update and reset form', () => {
   expect(email.value).toBe('')
   expect(password.value).toBe('')
 })
+
+test('can apply middleware', () => {
+  const email = new GenericFormInputPresenter<string>('')
+    .mustBeEmail()
+    .isRequired()
+    .withMiddleware(newValue => newValue.toUpperCase())
+
+  expect(email.value).toBe('')
+
+  email.onChange('test@test.com')
+
+  expect(email.value).toBe('TEST@TEST.COM')
+})
