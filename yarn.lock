@@ -2920,10 +2920,10 @@ mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
-mobx@^5.9.0:
-  version "5.10.1"
-  resolved "https://registry.yarnpkg.com/mobx/-/mobx-5.10.1.tgz#eb0e2ff76fe376d0a42c941533260deeae5956d8"
-  integrity sha512-L+akEGxdkKYssejgW9ayRPx5cZYJfxvTmdBUeR3S9oeumScV7Jj57yPeh9WMEk6NWeG8Wx3H0cWhqs0pftbtmg==
+mobx@4:
+  version "4.12.0"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-4.12.0.tgz#9032d7cf077497b4356fa4ef6f2ee81e568114fe"
+  integrity sha512-ydTbIbe4fjIS+EVBvtgI4K/KHLKZqdO7YVXo7530uLO/Y7l8lsxq0eD0pZkZvdLlC071flMYXS+By8+MwOPF0w==
 
 ms@2.0.0:
   version "2.0.0"
