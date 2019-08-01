@@ -1,4 +1,4 @@
-import { observable, action, computed } from 'mobx'
+import { observable, action, computed, toJS } from 'mobx'
 import { GenericFormInputPresenter } from 'src/GenericFormInputPresenter'
 
 export class GenericFormPresenter {
@@ -37,11 +37,15 @@ export class GenericFormPresenter {
 
   @computed
   public get errorMessages(): string[] {
-    return (this.serverErrors || []).concat(
-      this.formInputs
-        .filter(input => {return input.value != ''})
-        .reduce((accumulator, input) => {
-          return accumulator.concat(input.errorMessages)
+    return (toJS(this.serverErrors) || []).concat(
+      toJS(this.formInputs)
+        .filter(input => {
+          //console.log(input.value)
+          if (input.value == '') return false
+          else return true
+        })
+        .reduce((flat, inputToFlatten) => {
+          return flat.concat(inputToFlatten.errorMessages)
         }, [])
     )
   }

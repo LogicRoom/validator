@@ -73,6 +73,7 @@ export class GenericFormInputPresenter<T> {
     condition: (value: T) => boolean,
     errorMessage?: string
   ) => {
+    if(errorMessage === '') throw new Error('Validation provided without error message');
     this.rules.push({ condition, errorMessage })
     this.validate()
     return this

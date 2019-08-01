@@ -1,27 +1,12 @@
 import { GenericFormInputPresenter } from './GenericFormInputPresenter'
 import { GenericFormPresenter } from './GenericFormPresenter'
-import { TextInputPresenter } from './doubles/TextInputPresenter'
 
-test('when no values in inputs then no error messages', () => {
-  const email = new TextInputPresenter()
-    .withHelpText(
-      `You must enter the email that you were registered with. You can find this
-        in the "Invitation Instructions" email, sent to you by 
-        automated@cutover.com`
-    )
-    .withLabel('Email')
-    .withType('email')
+const setupEmptyFields = () => {
+  const email = new GenericFormInputPresenter<string>('')
     .mustBeEmail()
     .isRequired()
 
-    const password = new TextInputPresenter()
-    .withHelpText(
-      `If a previous password is not working, it may have been expired according
-      to your corporate password expiry policy. To create a new password, click
-      on "Forgot Password" below and enter the email you registered with`
-    )
-    .withLabel('Password')
-    .withType('password')
+  const password = new GenericFormInputPresenter<string>('')
     .mustBeString()
     .isRequired()
 
@@ -29,46 +14,92 @@ test('when no values in inputs then no error messages', () => {
     .addFormInput(email)
     .addFormInput(password)
 
+  return { email, password, form }
+}
+
+test('fresh form', () => {
+  const { email, password, form } = setupEmptyFields()
+  expect(email.isDirty).toBe(false)
+  expect(email.isValid).toBe(false)
+
+  expect(password.isDirty).toBe(false)
+  expect(password.isValid).toBe(false)
+
+  expect(form.isDirty).toBe(false)
+  expect(form.isValid).toBe(false)
+
   expect(form.errorMessages.length).toBe(0)
 })
 
-test('login scenario', () => {
+test('single valid input', () => {
+
+  const { email, password, form } = setupEmptyFields()
+
+  email.onChange('test@test.com')
+
+  expect(email.isDirty).toBe(true)
+  expect(email.isValid).toBe(true)
+
+  expect(password.isDirty).toBe(false)
+  expect(password.isValid).toBe(false)
+
+  expect(form.isDirty).toBe(true)
+  expect(form.isValid).toBe(false)
+
+  expect(form.errorMessages.length).toBe(0)
+
+})
+
+test('a single invalid input', () => {
+
+  const { email, password, form } = setupEmptyFields()
+
+  email.onChange('INVALID EMAIL')
+
+  expect(email.isDirty).toBe(true)
+  expect(email.isValid).toBe(false)
+
+  expect(password.isDirty).toBe(false)
+  expect(password.isValid).toBe(false)
+
+  expect(form.isDirty).toBe(true)
+  expect(form.isValid).toBe(false)
+
+  expect(form.errorMessages.length).toBe(1)
+
+})
+
+test('should flatten error messages', () => {
+
   const email = new GenericFormInputPresenter<string>('')
     .mustBeEmail('You must provide a valid email address')
-    .isRequired()
+    .isRequired('You must provide an email address')
 
-  const password = new GenericFormInputPresenter<string>('').isRequired(
-    'You must populate the password field'
+  const password = new GenericFormInputPresenter<any>('')
+    .mustBeString('You must provide a string for password')
+    .isRequired('You must populate the password field'
   )
 
   const form = new GenericFormPresenter()
     .addFormInput(email)
     .addFormInput(password)
 
-  expect(email.isValid).toBe(false)
-  expect(email.isDirty).toBe(false)
+  email.onChange('INVALID EMAIL')
+  password.onChange(123123123)
 
-  expect(password.isValid).toBe(false)
-  expect(password.isDirty).toBe(false)
-
-  expect(form.isValid).toBe(false)
-  expect(form.isDirty).toBe(false)
-  expect(form.errorMessages).toEqual([
-    'You must provide a valid email address',
-    'You must populate the password field'
-  ])
-
-  email.onChange('test@test.com')
-
-  expect(email.isValid).toBe(true)
   expect(email.isDirty).toBe(true)
+  expect(email.isValid).toBe(false)
 
+  expect(password.isDirty).toBe(true)
   expect(password.isValid).toBe(false)
-  expect(password.isDirty).toBe(false)
 
-  expect(form.isValid).toBe(false)
   expect(form.isDirty).toBe(true)
-  expect(form.errorMessages).toEqual(['You must populate the password field'])
+  expect(form.isValid).toBe(false)
+
+  expect(form.errorMessages.length).toBe(2)
+  expect(form.errorMessages).toEqual([ 'You must provide a valid email address',
+    'You must provide a string for password' ])
+
 })
 
 test('can update and reset form', () => {
