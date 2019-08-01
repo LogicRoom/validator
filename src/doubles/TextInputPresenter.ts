@@ -1,5 +1,7 @@
 import { GenericFormInputPresenter } from '../GenericFormInputPresenter'
 import { observable } from 'mobx'
+import { TIcons } from './TIcons'
+import { TTextInputType } from './TTextInputType'
 
 export class TextInputPresenter extends GenericFormInputPresenter<string> {
   @observable
