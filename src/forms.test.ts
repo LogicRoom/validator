@@ -1,5 +1,6 @@
 import { GenericFormInputPresenter } from './GenericFormInputPresenter'
 import { GenericFormPresenter } from './GenericFormPresenter'
+import { toJS } from 'mobx'
 
 const setupEmptyFields = () => {
   const email = new GenericFormInputPresenter<string>('')
@@ -73,32 +74,24 @@ test('should flatten error messages', () => {
 
   const email = new GenericFormInputPresenter<string>('')
     .mustBeEmail('You must provide a valid email address')
-    .isRequired('You must provide an email address')
+    .mustHaveMinLength(15, 'Min email length is 15 characters')
 
   const password = new GenericFormInputPresenter<any>('')
     .mustBeString('You must provide a string for password')
-    .isRequired('You must populate the password field'
-  )
+    .mustHaveMinLength(22, 'Min password length is 22 characters')
 
   const form = new GenericFormPresenter()
     .addFormInput(email)
     .addFormInput(password)
 
   email.onChange('INVALID EMAIL')
-  password.onChange(123123123)
+  password.onChange(333)
 
-  expect(email.isDirty).toBe(true)
-  expect(email.isValid).toBe(false)
-
-  expect(password.isDirty).toBe(true)
-  expect(password.isValid).toBe(false)
-
-  expect(form.isDirty).toBe(true)
-  expect(form.isValid).toBe(false)
-
-  expect(form.errorMessages.length).toBe(2)
-  expect(form.errorMessages).toEqual([ 'You must provide a valid email address',
-    'You must provide a string for password' ])
+  expect(toJS(form.errorMessages)).toEqual( [ 'You must provide a valid email address',
+    'Min email length is 15 characters',
+    'You must provide a string for password',
+    'Min password length is 22 characters' ]
+  )
 
 })
 

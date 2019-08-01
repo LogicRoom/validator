@@ -40,7 +40,6 @@ export class GenericFormPresenter {
     return (toJS(this.serverErrors) || []).concat(
       toJS(this.formInputs)
         .filter(input => {
-          //console.log(input.value)
           if (input.value == '') return false
           else return true
         })

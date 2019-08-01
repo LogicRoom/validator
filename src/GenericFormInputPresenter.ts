@@ -1,4 +1,4 @@
-import { observable, action, reaction } from 'mobx'
+import { observable, action, reaction, toJS } from 'mobx'
 import {
   MUST_BE_POPULATED,
   MUST_BE_EMAIL,
@@ -125,14 +125,12 @@ export class GenericFormInputPresenter<T> {
   private validate? = () => {
     let isValid = true
     let errorMessages = []
-
     this.rules.forEach(rule => {
       if (!rule.condition(this.value)) {
         isValid = false
         errorMessages.push(rule.errorMessage)
       }
     })
-
     this.isValid = isValid
     this.errorMessages = errorMessages
   }
