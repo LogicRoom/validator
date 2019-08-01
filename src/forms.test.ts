@@ -70,7 +70,7 @@ test('single invalid input', () => {
 
 })
 
-test('should flatten error messages + register post dirty', () => {
+test('should flatten error messages + recalculate messages', () => {
 
   const email = new GenericFormInputPresenter<string>('')
     .mustBeEmail('You must provide a valid email address')
