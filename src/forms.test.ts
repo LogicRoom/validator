@@ -3,7 +3,6 @@ import { GenericFormPresenter } from './GenericFormPresenter'
 import { TextInputPresenter } from './doubles/TextInputPresenter'
 
 test('when no values in inputs then no error messages', () => {
-
   const email = new TextInputPresenter()
     .withHelpText(
       `You must enter the email that you were registered with. You can find this
@@ -31,10 +30,7 @@ test('when no values in inputs then no error messages', () => {
     .addFormInput(password)
 
   expect(form.errorMessages.length).toBe(0)
-
 })
-
-
 
 test('login scenario', () => {
   const email = new GenericFormInputPresenter<string>('')
