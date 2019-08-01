@@ -1,5 +1,40 @@
 import { GenericFormInputPresenter } from './GenericFormInputPresenter'
 import { GenericFormPresenter } from './GenericFormPresenter'
+import { TextInputPresenter } from './doubles/TextInputPresenter'
+
+test('when no values in inputs then no error messages', () => {
+
+  const email = new TextInputPresenter()
+    .withHelpText(
+      `You must enter the email that you were registered with. You can find this
+        in the "Invitation Instructions" email, sent to you by 
+        automated@cutover.com`
+    )
+    .withLabel('Email')
+    .withType('email')
+    .mustBeEmail()
+    .isRequired()
+
+    const password = new TextInputPresenter()
+    .withHelpText(
+      `If a previous password is not working, it may have been expired according
+      to your corporate password expiry policy. To create a new password, click
+      on "Forgot Password" below and enter the email you registered with`
+    )
+    .withLabel('Password')
+    .withType('password')
+    .mustBeString()
+    .isRequired()
+
+  const form = new GenericFormPresenter()
+    .addFormInput(email)
+    .addFormInput(password)
+
+  expect(form.errorMessages.length).toBe(0)
+
+})
+
+
 
 test('login scenario', () => {
   const email = new GenericFormInputPresenter<string>('')

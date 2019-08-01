@@ -39,10 +39,10 @@ export class GenericFormPresenter {
   public get errorMessages(): string[] {
     return (this.serverErrors || []).concat(
       this.formInputs
+        .filter(input => {return input.value != ''})
         .reduce((accumulator, input) => {
           return accumulator.concat(input.errorMessages)
         }, [])
-        .filter(error => error)
     )
   }
 
