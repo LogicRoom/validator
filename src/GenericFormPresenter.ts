@@ -39,8 +39,8 @@ export class GenericFormPresenter {
     return (toJS(this.serverErrors) || []).concat(
       toJS(this.formInputs)
         .filter(input => {
-          let cleanAndEmpty = (input.value == '' && !input.isDirty)
-          return !cleanAndEmpty;
+          let hasBeenPopulated = !(input.value == '' && !input.isDirty)
+          return hasBeenPopulated;
         })
         .reduce((flat, inputToFlatten) => {
           return flat.concat(inputToFlatten.errorMessages)
