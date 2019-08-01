@@ -26,7 +26,6 @@ export class GenericFormPresenter {
   @computed
   public get isValid(): boolean {
     if ((this.serverErrors || []).length > 0) return false
-
     return this.formInputs
       .map(input => input.isValid)
       .reduce((accumulator, currentValue) => {
@@ -40,7 +39,7 @@ export class GenericFormPresenter {
     return (toJS(this.serverErrors) || []).concat(
       toJS(this.formInputs)
         .filter(input => {
-          if (input.value == '') return false
+          if (input.value == '' && !input.isDirty) return false
           else return true
         })
         .reduce((flat, inputToFlatten) => {

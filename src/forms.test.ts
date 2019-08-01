@@ -51,7 +51,7 @@ test('single valid input', () => {
 
 })
 
-test('a single invalid input', () => {
+test('single invalid input', () => {
 
   const { email, password, form } = setupEmptyFields()
 
@@ -70,7 +70,7 @@ test('a single invalid input', () => {
 
 })
 
-test('should flatten error messages', () => {
+test('should flatten error messages + register post dirty', () => {
 
   const email = new GenericFormInputPresenter<string>('')
     .mustBeEmail('You must provide a valid email address')
@@ -90,8 +90,14 @@ test('should flatten error messages', () => {
   expect(toJS(form.errorMessages)).toEqual( [ 'You must provide a valid email address',
     'Min email length is 15 characters',
     'You must provide a string for password',
-    'Min password length is 22 characters' ]
-  )
+    'Min password length is 22 characters' ])
+
+  email.onChange('')
+  password.onChange('')
+
+  expect(toJS(form.errorMessages)).toEqual( [ 'You must provide a valid email address',
+    'Min email length is 15 characters',
+    'Min password length is 22 characters' ])
 
 })
 
