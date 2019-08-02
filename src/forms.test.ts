@@ -33,7 +33,6 @@ test('fresh form', () => {
 })
 
 test('single valid input', () => {
-
   const { email, password, form } = setupEmptyFields()
 
   email.onChange('test@test.com')
@@ -51,9 +50,19 @@ test('single valid input', () => {
 
 })
 
-test('single invalid input', () => {
+test.only('single invalid input', () => {
 
-  const { email, password, form } = setupEmptyFields()
+  const email = new GenericFormInputPresenter<string>('')
+    .mustBeEmail('must be email')
+    .isRequired('must be email')
+
+  const password = new GenericFormInputPresenter<string>('')
+    .mustBeString()
+    .isRequired()
+
+  const form = new GenericFormPresenter()
+    .addFormInput(email)
+    .addFormInput(password)
 
   email.onChange('INVALID EMAIL')
 
@@ -67,6 +76,16 @@ test('single invalid input', () => {
   expect(form.isValid).toBe(false)
 
   expect(form.errorMessages.length).toBe(1)
+
+})
+
+test('empty validation message should not produce error messages (but still be in error state)', () => {
+
+  const email = new GenericFormInputPresenter<string>('').mustBeEmail()
+
+  const form = new GenericFormPresenter().addFormInput(email)
+
+  expect(form.errorMessages.length).toBe(0)
 
 })
 
@@ -101,7 +120,7 @@ test('should flatten error messages + recalculate messages', () => {
 
 })
 
-test('can update and reset form', () => {
+test('should update and reset form', () => {
   const email = new GenericFormInputPresenter<string>('')
     .mustBeEmail()
     .isRequired()
@@ -127,7 +146,7 @@ test('can update and reset form', () => {
   expect(password.value).toBe('')
 })
 
-test('can apply middleware', () => {
+test('should apply middleware', () => {
   const email = new GenericFormInputPresenter<string>('')
     .mustBeEmail()
     .isRequired()
