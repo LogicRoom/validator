@@ -1,4 +1,4 @@
-import { observable, action, reaction, toJS } from 'mobx'
+import { observable, action, reaction } from 'mobx'
 import {
   MUST_BE_POPULATED,
   MUST_BE_EMAIL,
