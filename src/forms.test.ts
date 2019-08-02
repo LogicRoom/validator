@@ -50,7 +50,7 @@ test('single valid input', () => {
 
 })
 
-test.only('single invalid input', () => {
+test('single invalid input', () => {
 
   const email = new GenericFormInputPresenter<string>('')
     .mustBeEmail('must be email')
@@ -84,6 +84,8 @@ test('empty validation message should not produce error messages (but still be i
   const email = new GenericFormInputPresenter<string>('').mustBeEmail()
 
   const form = new GenericFormPresenter().addFormInput(email)
+
+  email.onChange('INVALID EMAIL')
 
   expect(form.errorMessages.length).toBe(0)
 
