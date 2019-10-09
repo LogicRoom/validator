@@ -8,7 +8,8 @@ export class GenericFormPresenter {
   @observable
   private formInputs?: GenericFormInputPresenter<any>[] = []
 
-  public addFormInput(formInput: GenericFormInputPresenter<any>) {
+  public addFormInput(formInput: GenericFormInputPresenter<any>, finishedChangeCycleArg?: any) {
+    formInput.finishedChangeCycle = finishedChangeCycleArg
     this.formInputs.push(formInput)
     return this
   }
