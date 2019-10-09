@@ -42,9 +42,12 @@ export class GenericFormInputPresenter<T> {
 
   private middleware: Array<(newValue: T) => T> = []
 
+  public finishedChangeCycle: any = null
+
   constructor(initialValue: T) {
     this.initialValue = initialValue
     this.value = initialValue
+
     reaction(() => this.value, this.validate)
   }
 
@@ -54,6 +57,7 @@ export class GenericFormInputPresenter<T> {
         (accumulator, middleware) => middleware(accumulator),
         newValue
       )
+      if(this.finishedChangeCycle) this.finishedChangeCycle()
       this.isDirty = true
     }
   }
